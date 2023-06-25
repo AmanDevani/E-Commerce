@@ -8,7 +8,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 //config
-dotenv.config({ path: "server/.env" });
+dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
