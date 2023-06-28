@@ -33,7 +33,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   Happy Shopping.
   `;
 
-  const subject = `Welcome to ${name} - Start Shopping Today!`;
+  const subject = `Welcome to E-Commerce - Start Shopping Today!`;
   try {
     await sendEmail({
       email: user.email,
