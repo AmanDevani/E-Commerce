@@ -25,6 +25,24 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     },
   });
   sendToken(user, 201, res);
+  //Send to the user.
+  const message = `Dear ${name},
+
+  We are thrilled to welcome you to E-Commerce ! Thank you for creating an account with us. Get ready to experience a world of convenience, variety, and unbeatable deals right at your fingertips.
+  
+  Happy Shopping.
+  `;
+
+  const subject = `Welcome to ${name} - Start Shopping Today!`;
+  try {
+    await sendEmail({
+      email: user.email,
+      subject,
+      message,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
 });
 
 //Login a user
@@ -48,21 +66,6 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   }
 
   sendToken(user, 200, res);
-
-  //Send login detection mail to the user.
-  const message = `<h1>Welcome to the Ecommerce.</h1>
-                    <p>Happy Shopping.</p>`;
-
-  const subject = "Thank You for Creating account on Ecommerce";
-  try {
-    await sendEmail({
-      email: user.email,
-      subject,
-      message,
-    });
-  } catch (error) {
-    return next(new ErrorHandler(error.message, 500));
-  }
 });
 
 //logout a user
